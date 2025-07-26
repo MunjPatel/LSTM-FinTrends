@@ -83,10 +83,6 @@ To run this project locally:
    ```
 The app will be available at `http://127.0.0.1:5000`, where you can view the model’s predictions and performance metrics.
 
-## Flowchart
-
-![LSTM Forecast Process](./lstm_forecast.png)
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
