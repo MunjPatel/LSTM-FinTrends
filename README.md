@@ -1,20 +1,26 @@
-# LSTM-FinTrends
+# **LSTM-FinTrends**
 
-LSTM-FinTrends is an end-to-end project that forecasts the directional movement of stock indices based on derived metrics using an LSTM (Long Short-Term Memory) deep learning model. The goal is not to create a live application but to demonstrate a complete workflow from data preprocessing to model prediction, data storage, and visualization. The project includes key technologies like LSTM for forecasting, data collection using yfinance, a Flask web app for rendering results, and process automation using GitHub Actions.
+**LSTM-FinTrends** is an **end-to-end project** that forecasts the **directional movement of stock indices** based on derived metrics using an **LSTM (Long Short-Term Memory)** deep learning model. The goal is not to create a live application but to **demonstrate a complete workflow** from data preprocessing to model prediction, data storage, and visualization. The project includes key technologies like **LSTM for forecasting**, **data collection using yfinance**, a **Flask web app** for rendering results, and **process automation using GitHub Actions**.
 
-## Project Overview
+---
 
-1. **Data Collection**: Index data is collected for different stock tickers using the `yfinance` library. The data includes derived metrics, like close price direction, percentage changes, and rolling averages.
-2. **Model**: An LSTM model is used for its effectiveness in capturing temporal dependencies, making it suitable for time series data. The model forecasts the direction of the stock's close price based on previous values.
-3. **Storage and Visualization**: The forecasted results, including metrics like confusion matrix and accuracy, are stored in JSON files. These results are rendered through a Flask web interface.
-4. **Automation**: GitHub Actions are used to automate the process as defined in `actions.yml`.
+![App Preview](lstm_fin_trends.gif)
 
-## Main Technologies
+---
 
-- **LSTM**: Chosen for its ability to process sequences, making it effective for time series analysis.
-- **yfinance**: Used to fetch historical stock data for various tickers.
-- **Flask**: Provides a simple web interface to display model predictions.
-- **GitHub Actions**: Automates the end-to-end process.
+## **🔍 Project Overview**
+
+1. **Data Collection**: Index data is collected for different stock tickers using the `yfinance` library. The data includes derived metrics like **close price direction**, **percentage changes**, and **rolling averages**.
+2. **Model**: An **LSTM model** is used for its effectiveness in capturing **temporal dependencies**, making it suitable for time series data. The model forecasts the **direction of the stock's close price** based on previous values.
+3. **Storage and Visualization**: The **forecasted results**, including metrics like **confusion matrix** and **accuracy**, are stored in **JSON files**. These results are rendered through a **Flask web interface**.
+4. **Automation**: **GitHub Actions** are used to automate the process as defined in `actions.yml`.
+
+## **🧰 Main Technologies**
+
+- **LSTM**: Chosen for its ability to process sequences, making it effective for **time series analysis**.
+- **yfinance**: Used to fetch **historical stock data** for various tickers.
+- **Flask**: Provides a **simple web interface** to display model predictions.
+- **GitHub Actions**: Automates the **end-to-end pipeline**.
 
 ## Project Structure
 
@@ -32,22 +38,31 @@ LSTM-FinTrends is an end-to-end project that forecasts the directional movement 
 │   └── performance.html   # Template for Flask app results page
 └── results/               # JSON files with model predictions for each ticker
 ```
-## Implementation Steps
+---
 
-1. **Data Preprocessing** (`preprocessing.py`):
-   - Historical data is fetched using `yfinance`.
-   - Derived metrics, such as percentage changes, rolling averages, and RSI, are calculated.
-   - The data is split into training and testing sets and scaled for model input.
+## ⚙️ **Implementation Steps**
 
-2. **Model Training and Prediction** (`lstm.py`):
-   - The LSTM model is structured with multiple layers, including dropout for regularization.
-   - The model is trained on each ticker's data and saved predictions are stored in JSON format for visualization.
+### 1. **Data Preprocessing** (`preprocessing.py`)
+- Fetches historical index data using `yfinance`.
+- Computes derived features (e.g., **rolling mean**, **RSI**, etc.).
+- Splits data into **train/test sets** and applies **scaling**.
 
-3. **Visualization** (`app.py`):
-   - A Flask web app displays the results. Users can select a ticker to view the actual vs. predicted close price trends and confusion matrix.
-   
-4. **Automation** (`actions.yml`):
-   - GitHub Actions automate the process to run data fetching, model training, and result generation on defined schedules.
+### 2. **Model Training & Prediction** (`lstm.py`)
+- Builds a multi-layer **LSTM model** with dropout regularization.
+- Trains on processed time series data.
+- Saves prediction outputs to **JSON**.
+
+### 3. **Visualization** (`app.py`)
+- Launches a **Flask app** that allows users to:
+  - Select a ticker
+  - View actual vs. predicted movement
+  - Inspect **accuracy and confusion matrix**
+
+### 4. **Automation** (`actions.yml`)
+- **GitHub Actions** automate daily/weekly model runs.
+- Fetches fresh data → trains model → updates results.
+
+---
 
 ## Running Locally
 
