@@ -42,7 +42,7 @@ jobs:
       - name: Commit and push new results
         run: |
           git add results/
-          git commit -m "Update results from daily analysis"
+          git commit -m "Update results from daily analysis - $(date -u '+%Y-%m-%d %H:%M:%S UTC')" || echo "No changes to commit"
           git push
         env:
           # This is necessary to authenticate the push using GitHub's token
