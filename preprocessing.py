@@ -1,14 +1,9 @@
 import yfinance as yf
 import sys
-from loguru import logger
 from dataclasses import dataclass
 import numpy as np
 from datetime import datetime, timedelta
 from sklearn.preprocessing import StandardScaler
-
-# Initialize logger
-logger.add(sys.stderr, format="{time} {level} {message}", level="INFO")
-logger.add("./logs/models_forecast.log", rotation="10 MB")
 
 @dataclass
 class ProcessTickerData:
@@ -20,7 +15,6 @@ class ProcessTickerData:
         Generate historical data and derived features for the given ticker.
         """
         try:
-            logger.info(f"Fetching historical data for ticker: {self.ticker}")
             ticker = yf.Ticker(self.ticker)
             historical_data = ticker.history(
                 start=str((datetime.today() - timedelta(365*20)).date()), 
@@ -78,11 +72,9 @@ class ProcessTickerData:
             X = historical_data[input_columns]
             y = historical_data['close_dir']
 
-            logger.info(f"Successfully generated features for {self.ticker}")
             return X, y
 
         except Exception as e:
-            logger.error(f"Error in generating data for {self.ticker}: {e}")
             raise e
 
     def _train_test_split(self, x_shape, X, y):
@@ -97,11 +89,9 @@ class ProcessTickerData:
             y_train_set = y.iloc[:train_till_index]
             y_test_set = y.iloc[train_till_index:]
 
-            logger.info(f"Train/test split completed for {self.ticker}")
             return x_train_set, x_test_set, y_train_set, y_test_set
 
         except Exception as e:
-            logger.error(f"Error in train/test split: {e}")
             raise e
 
     def _scale(self, x_train, x_test, scaler):
@@ -111,11 +101,9 @@ class ProcessTickerData:
         try:
             x_train_scaled = scaler.fit_transform(x_train)
             x_test_scaled = scaler.transform(x_test)
-            logger.info(f"Scaling completed for {self.ticker}")
             return x_train_scaled, x_test_scaled
 
         except Exception as e:
-            logger.error(f"Error in scaling data: {e}")
             raise e
 
 
@@ -139,9 +127,7 @@ def preprocess_main(ticker):
         x_train_scaled, x_test_scaled = ticker_data._scale(
             x_train=x_train_set, x_test=x_test_set, scaler=scaler
         )
-        # logger.info(f"Preprocessing completed for {ticker}")
         return x_train_scaled, x_test_scaled, y_train_set, y_test_set
 
     except Exception as e:
-        logger.error(f"Error in preprocessing {ticker}: {e}")
         raise e

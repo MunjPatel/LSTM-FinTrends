@@ -6,7 +6,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from dataclasses import dataclass
-from preprocessing import logger, preprocess_main
+from preprocessing import preprocess_main
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
